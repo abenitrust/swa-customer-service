@@ -1,4 +1,4 @@
-package com.application.web;
+package com.application.customError;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,21 +1,17 @@
 package com.application.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Collection;
 import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class Customers {
     private Collection<Customer> customers;
 
-    public Customers(Collection<Customer> customers)
-    {
-        this.customers = customers;
-    }
-
-    public Collection<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
 }
