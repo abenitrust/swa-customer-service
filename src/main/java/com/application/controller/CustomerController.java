@@ -1,5 +1,6 @@
-package com.application.web;
+package com.application.controller;
 
+import com.application.customError.CustomErrorType;
 import com.application.domain.Customer;
 import com.application.domain.Customers;
 import com.application.service.CustomerService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     @Autowired
-    CustomerService service;
+    CustomerService customerService;
 
     private static final Logger log = LoggerFactory.getLogger(CustomerController.class);
 
@@ -25,7 +26,7 @@ public class CustomerController {
     public ResponseEntity<?> addCustomer(@RequestBody Customer customer) {
         log.info("POST request for /customer/add with body: " + customer);
 
-        service.addCustomer(customer);
+        customerService.addCustomer(customer);
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
 
@@ -33,14 +34,14 @@ public class CustomerController {
     public ResponseEntity<?> updateCustomer(@RequestBody Customer customer) {
         log.info("POST request for /customer/update with body: " + customer);
 
-        service.updateCustomer(customer);
+        customerService.updateCustomer(customer);
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
 
     @GetMapping("/{customerId}")
     public ResponseEntity<?> getCustomer(@PathVariable String customerId) {
         log.info("GET request for /customer/" + customerId);
-        Customer customer = service.findCustomerById(customerId);
+        Customer customer = customerService.findCustomerById(customerId);
         if(customer == null) {
             return new ResponseEntity<CustomErrorType>(new CustomErrorType("Customer with id = " + customerId + " is not found!"),
                     HttpStatus.NOT_FOUND);
@@ -51,13 +52,13 @@ public class CustomerController {
     @GetMapping("/delete/{customerId}")
     public ResponseEntity<?> deleteCustomer(@PathVariable String customerId) {
         log.info("DELETE request for /customer/delete/" + customerId);
-        service.deleteCustomer(customerId);
+        customerService.deleteCustomer(customerId);
         return new ResponseEntity<String>("CustomerId = " + customerId + " is deleted!", HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllCustomers() {
         log.info("GET request for /customer/all");
-        return new ResponseEntity<Customers>(new Customers(service.getAllCustomer()), HttpStatus.OK);
+        return new ResponseEntity<Customers>(new Customers(customerService.getAllCustomer()), HttpStatus.OK);
     }
 }
