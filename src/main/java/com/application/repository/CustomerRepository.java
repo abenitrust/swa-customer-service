@@ -1,4 +1,4 @@
-package com.application.data;
+package com.application.repository;
 
 import com.application.domain.Customer;
 
